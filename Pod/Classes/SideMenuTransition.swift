@@ -228,6 +228,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
         menuView.frame.origin.x = SideMenuTransition.presentDirection == .Left ? 0 : size.width - SideMenuManager.menuWidth
         SideMenuTransition.statusBarView?.frame = UIApplication.sharedApplication().statusBarFrame
         SideMenuTransition.statusBarView?.alpha = 1
+        let shadowPath = UIBezierPath(rect: menuView.bounds).CGPath
         
         switch SideMenuManager.menuPresentMode {
             
@@ -239,6 +240,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             mainViewController.view.layer.shadowRadius = SideMenuManager.menuShadowRadius
             mainViewController.view.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
             mainViewController.view.layer.shadowOffset = CGSizeMake(0, 0)
+            mainViewController.view.layer.shadowPath = shadowPath
             
         case .ViewSlideInOut:
             menuView.alpha = 1
@@ -246,6 +248,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
             menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
             menuView.layer.shadowOffset = CGSizeMake(0, 0)
+            menuView.layer.shadowPath = shadowPath
             let direction:CGFloat = SideMenuTransition.presentDirection == .Left ? 1 : -1
             mainViewController.view.frame = CGRect(x: direction * (menuView.frame.width), y: 0, width: size.width, height: size.height)
             mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
@@ -257,6 +260,7 @@ internal class SideMenuTransition: UIPercentDrivenInteractiveTransition, UIViewC
             menuView.layer.shadowRadius = SideMenuManager.menuShadowRadius
             menuView.layer.shadowOpacity = SideMenuManager.menuShadowOpacity
             menuView.layer.shadowOffset = CGSizeMake(0, 0)
+            menuView.layer.shadowPath = shadowPath
             mainViewController.view.frame = CGRectMake(0, 0, size.width, size.height)
             mainViewController.view.transform = CGAffineTransformMakeScale(SideMenuManager.menuAnimationTransformScaleFactor, SideMenuManager.menuAnimationTransformScaleFactor)
             mainViewController.view.alpha = 1 - SideMenuManager.menuAnimationFadeStrength
